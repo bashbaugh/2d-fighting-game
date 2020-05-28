@@ -8,15 +8,18 @@ public class PlayerCombat : MonoBehaviour
 
     public Animator animator;
 
+    public SoundController soundController;
+
     public Transform meleePoint;
     public float meleeRange = 0.5f;
     public int meleeDamage = 10;
     public LayerMask enemyLayers;
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    void Awake()
+    {
+        // Get SoundContoller script from soundController object
+        //soundController = soundController.GetComponent<SoundController>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,8 @@ public class PlayerCombat : MonoBehaviour
     void Melee()
     {
         animator.SetTrigger("melee");
+
+        soundController.Play("Melee");
 
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleePoint.position, meleeRange, enemyLayers);
         foreach (Collider2D enemy in hitEnemies)
